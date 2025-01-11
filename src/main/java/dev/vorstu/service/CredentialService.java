@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,10 @@ public class CredentialService {
 
     private final CredentialRepository credentialRepository;
     private final CredentialMapper mapper;
+    static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public CredentialDto create(CredentialDto credentialDto) {
+        credentialDto.setPassword(passwordEncoder.encode(credentialDto.getPassword()));
         return mapper.entityToDto(
                 credentialRepository.save(mapper.dtoToEntity(credentialDto))
         );

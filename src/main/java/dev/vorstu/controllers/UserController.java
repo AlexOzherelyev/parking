@@ -4,6 +4,8 @@ import dev.vorstu.dto.OwnerDto;
 import dev.vorstu.dto.UserDto;
 import dev.vorstu.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +20,12 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-
-    @GetMapping
-    public List<UserDto> getUser(){return userService.findAll();}
-
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserDto> getUser() {
+        logger.info("getUser method called"); // Добавьте это сообщение
+        return userService.findAll();
+    }
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id){
         Optional<UserDto> userDto =userService.findById(id);

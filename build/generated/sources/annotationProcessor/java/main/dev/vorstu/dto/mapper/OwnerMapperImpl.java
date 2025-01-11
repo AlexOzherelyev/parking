@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-10T19:13:28+0300",
+    date = "2025-01-11T16:53:57+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 17.0.13 (Amazon.com Inc.)"
 )
 @Component
@@ -51,18 +51,18 @@ public class OwnerMapperImpl implements OwnerMapper {
             return null;
         }
 
-        OwnerDto ownerDto = new OwnerDto();
+        OwnerDto.OwnerDtoBuilder ownerDto = OwnerDto.builder();
 
-        ownerDto.setId( entity.getId() );
-        ownerDto.setIsApproved( entity.getIsApproved() );
-        ownerDto.setUserId( entity.getUserId() );
-        ownerDto.setParking( parkingMapper.toList( entity.getParking() ) );
+        ownerDto.id( entity.getId() );
+        ownerDto.isApproved( entity.getIsApproved() );
+        ownerDto.userId( entity.getUserId() );
+        ownerDto.parking( parkingMapper.toList( entity.getParking() ) );
         List<ChatRoom> list1 = entity.getChatRoom();
         if ( list1 != null ) {
-            ownerDto.setChatRoom( new ArrayList<ChatRoom>( list1 ) );
+            ownerDto.chatRoom( new ArrayList<ChatRoom>( list1 ) );
         }
 
-        return ownerDto;
+        return ownerDto.build();
     }
 
     @Override

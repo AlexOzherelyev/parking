@@ -26,6 +26,6 @@ public class ParkingDto {
     private Date timeStart;
     private Date timeEnd;
     private Long ownerId;
-    private Booking booking;
+    private BookingDto booking;
     private List<Photo> photo;
 }

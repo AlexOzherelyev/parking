@@ -18,7 +18,6 @@ import java.util.Collection;
 @AllArgsConstructor
 public class Credential implements UserDetails{
 
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -33,7 +32,6 @@ public class Credential implements UserDetails{
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "credential")
     private User user;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -21,7 +21,7 @@ public class UserDto {
     private String email;
     private Long credentialId;
     private OwnerDto owner;
-    private List<Booking> booking;
+    private List<BookingDto> booking;
     private List<ChatRoom> chatRoom;
 
 

@@ -37,14 +37,17 @@ public class InitializerService {
     @Autowired
     private final CredentialService credentialService;
 
+    @Lazy
+    @Autowired
+    private final BookingService bookingService;
+
     public void initial(){
 
         CredentialDto credentialDto = credentialService.create(CredentialDto.builder()
                 .username("abc")
-                .password("$2a$12$f2IOFS7ubmGlDCUU6fYF2uPq.1Yw8hrCo7llgxVJ2STavZmPx1eOi")
+                .password("123")
                 .role(Role.USER)
                 .build());
-
 
         UserDto userDto = userService.create(UserDto.builder()
                 .fio("Мапперов Алексей Вячеславович")
@@ -56,6 +59,22 @@ public class InitializerService {
                 .isApproved(false)
                 .userId(userDto.getId()).build());
 
+        CredentialDto credentialDto1 = credentialService.create(CredentialDto.builder()
+                .username("user")
+                .password("123")
+                .role(Role.USER)
+                .build());
+
+        UserDto userDto1 = userService.create(UserDto.builder()
+                .fio("ПОПОВ Алексей Вячеславович")
+                .phone("+79876543210")
+                .email("adjalkdaljda@dajdlajdada.com")
+                .credentialId(credentialDto1.getId()).build());
+
+        OwnerDto ownerDto1 = ownerService.create(OwnerDto.builder()
+                .isApproved(false)
+                .userId(userDto1.getId()).build());
+
         ParkingDto parkingDto = parkingService.create(ParkingDto.builder()
                 .address("воронеж")
                 .code("abc")
@@ -64,7 +83,6 @@ public class InitializerService {
                 .timeEnd(new Date(System.currentTimeMillis() + (2 * 60 * 60 * 1000)))
                 .ownerId(ownerDto.getId())
                 .booking(null).build());
-
 
     }
 

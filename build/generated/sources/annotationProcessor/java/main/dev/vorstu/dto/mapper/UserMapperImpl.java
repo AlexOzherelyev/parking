@@ -1,7 +1,6 @@
 package dev.vorstu.dto.mapper;
 
 import dev.vorstu.dto.UserDto;
-import dev.vorstu.entity.Booking;
 import dev.vorstu.entity.ChatRoom;
 import dev.vorstu.entity.User;
 import java.util.ArrayList;
@@ -12,17 +11,19 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-10T19:13:28+0300",
+    date = "2025-01-11T16:53:57+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 17.0.13 (Amazon.com Inc.)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
 
+    private final BookingMapper bookingMapper;
     private final OwnerMapper ownerMapper;
 
     @Autowired
-    public UserMapperImpl(OwnerMapper ownerMapper) {
+    public UserMapperImpl(BookingMapper bookingMapper, OwnerMapper ownerMapper) {
 
+        this.bookingMapper = bookingMapper;
         this.ownerMapper = ownerMapper;
     }
 
@@ -40,10 +41,7 @@ public class UserMapperImpl implements UserMapper {
         user.setEmail( dto.getEmail() );
         user.setCredentialId( dto.getCredentialId() );
         user.setOwner( ownerMapper.dtoToEntity( dto.getOwner() ) );
-        List<Booking> list = dto.getBooking();
-        if ( list != null ) {
-            user.setBooking( new ArrayList<Booking>( list ) );
-        }
+        user.setBooking( bookingMapper.toListEntity( dto.getBooking() ) );
         List<ChatRoom> list1 = dto.getChatRoom();
         if ( list1 != null ) {
             user.setChatRoom( new ArrayList<ChatRoom>( list1 ) );
@@ -58,24 +56,21 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        UserDto userDto = new UserDto();
+        UserDto.UserDtoBuilder userDto = UserDto.builder();
 
-        userDto.setId( entity.getId() );
-        userDto.setFio( entity.getFio() );
-        userDto.setPhone( entity.getPhone() );
-        userDto.setEmail( entity.getEmail() );
-        userDto.setCredentialId( entity.getCredentialId() );
-        userDto.setOwner( ownerMapper.entityToDto( entity.getOwner() ) );
-        List<Booking> list = entity.getBooking();
-        if ( list != null ) {
-            userDto.setBooking( new ArrayList<Booking>( list ) );
-        }
+        userDto.id( entity.getId() );
+        userDto.fio( entity.getFio() );
+        userDto.phone( entity.getPhone() );
+        userDto.email( entity.getEmail() );
+        userDto.credentialId( entity.getCredentialId() );
+        userDto.owner( ownerMapper.entityToDto( entity.getOwner() ) );
+        userDto.booking( bookingMapper.toList( entity.getBooking() ) );
         List<ChatRoom> list1 = entity.getChatRoom();
         if ( list1 != null ) {
-            userDto.setChatRoom( new ArrayList<ChatRoom>( list1 ) );
+            userDto.chatRoom( new ArrayList<ChatRoom>( list1 ) );
         }
 
-        return userDto;
+        return userDto.build();
     }
 
     @Override

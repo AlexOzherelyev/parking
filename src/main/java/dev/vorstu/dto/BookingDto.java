@@ -18,9 +18,9 @@ import java.util.List;
 public class BookingDto {
 
     private Long id;
-    private Parking parking;
+    private Long parkingId;
     private Date timeBookStart;
     private Date timeBookEnd;
     private Boolean isApproved;
-    private User user;
+    private Long userId;
 }

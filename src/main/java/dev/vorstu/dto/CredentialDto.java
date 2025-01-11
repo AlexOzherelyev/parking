@@ -24,5 +24,4 @@ public class CredentialDto {
     private Role role;
     private UserDto user;
 
-
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-10T19:13:28+0300",
+    date = "2025-01-11T16:53:57+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 17.0.13 (Amazon.com Inc.)"
 )
 @Component
@@ -30,15 +30,15 @@ public class CredentialMapperImpl implements CredentialMapper {
             return null;
         }
 
-        Credential credential = new Credential();
+        Credential.CredentialBuilder credential = Credential.builder();
 
-        credential.setId( dto.getId() );
-        credential.setUsername( dto.getUsername() );
-        credential.setPassword( dto.getPassword() );
-        credential.setRole( dto.getRole() );
-        credential.setUser( userMapper.dtoToEntity( dto.getUser() ) );
+        credential.id( dto.getId() );
+        credential.username( dto.getUsername() );
+        credential.password( dto.getPassword() );
+        credential.role( dto.getRole() );
+        credential.user( userMapper.dtoToEntity( dto.getUser() ) );
 
-        return credential;
+        return credential.build();
     }
 
     @Override
@@ -47,15 +47,15 @@ public class CredentialMapperImpl implements CredentialMapper {
             return null;
         }
 
-        CredentialDto credentialDto = new CredentialDto();
+        CredentialDto.CredentialDtoBuilder credentialDto = CredentialDto.builder();
 
-        credentialDto.setId( entity.getId() );
-        credentialDto.setUsername( entity.getUsername() );
-        credentialDto.setPassword( entity.getPassword() );
-        credentialDto.setRole( entity.getRole() );
-        credentialDto.setUser( userMapper.entityToDto( entity.getUser() ) );
+        credentialDto.id( entity.getId() );
+        credentialDto.username( entity.getUsername() );
+        credentialDto.password( entity.getPassword() );
+        credentialDto.role( entity.getRole() );
+        credentialDto.user( userMapper.entityToDto( entity.getUser() ) );
 
-        return credentialDto;
+        return credentialDto.build();
     }
 
     @Override

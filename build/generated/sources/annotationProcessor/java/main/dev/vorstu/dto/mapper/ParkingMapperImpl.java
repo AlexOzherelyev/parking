@@ -6,15 +6,24 @@ import dev.vorstu.entity.Photo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-10T19:13:28+0300",
+    date = "2025-01-11T16:53:57+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 17.0.13 (Amazon.com Inc.)"
 )
 @Component
 public class ParkingMapperImpl implements ParkingMapper {
+
+    private final BookingMapper bookingMapper;
+
+    @Autowired
+    public ParkingMapperImpl(BookingMapper bookingMapper) {
+
+        this.bookingMapper = bookingMapper;
+    }
 
     @Override
     public Parking dtoToEntity(ParkingDto dto) {
@@ -31,7 +40,7 @@ public class ParkingMapperImpl implements ParkingMapper {
         parking.setTimeStart( dto.getTimeStart() );
         parking.setTimeEnd( dto.getTimeEnd() );
         parking.setOwnerId( dto.getOwnerId() );
-        parking.setBooking( dto.getBooking() );
+        parking.setBooking( bookingMapper.dtoToEntity( dto.getBooking() ) );
         List<Photo> list = dto.getPhoto();
         if ( list != null ) {
             parking.setPhoto( new ArrayList<Photo>( list ) );
@@ -46,22 +55,22 @@ public class ParkingMapperImpl implements ParkingMapper {
             return null;
         }
 
-        ParkingDto parkingDto = new ParkingDto();
+        ParkingDto.ParkingDtoBuilder parkingDto = ParkingDto.builder();
 
-        parkingDto.setId( entity.getId() );
-        parkingDto.setAddress( entity.getAddress() );
-        parkingDto.setCode( entity.getCode() );
-        parkingDto.setPrice( entity.getPrice() );
-        parkingDto.setTimeStart( entity.getTimeStart() );
-        parkingDto.setTimeEnd( entity.getTimeEnd() );
-        parkingDto.setOwnerId( entity.getOwnerId() );
-        parkingDto.setBooking( entity.getBooking() );
+        parkingDto.id( entity.getId() );
+        parkingDto.address( entity.getAddress() );
+        parkingDto.code( entity.getCode() );
+        parkingDto.price( entity.getPrice() );
+        parkingDto.timeStart( entity.getTimeStart() );
+        parkingDto.timeEnd( entity.getTimeEnd() );
+        parkingDto.ownerId( entity.getOwnerId() );
+        parkingDto.booking( bookingMapper.entityToDto( entity.getBooking() ) );
         List<Photo> list = entity.getPhoto();
         if ( list != null ) {
-            parkingDto.setPhoto( new ArrayList<Photo>( list ) );
+            parkingDto.photo( new ArrayList<Photo>( list ) );
         }
 
-        return parkingDto;
+        return parkingDto.build();
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Parking {
     @Column(name="owner_id")
     private Long ownerId;
 
-    @OneToOne(mappedBy = "parking")
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "parking")
     private Booking booking;
 
     @OneToMany(mappedBy = "parking",fetch = FetchType.LAZY, cascade = CascadeType.ALL)

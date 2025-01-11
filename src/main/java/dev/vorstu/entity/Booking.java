@@ -19,9 +19,12 @@ public class Booking {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "parking_id")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "parking_id", nullable = false,updatable = false,insertable = false)
     private Parking parking;
+
+    @Column(name="parking_id")
+    private Long parkingId;
 
     private Date timeBookStart;
 
@@ -30,7 +33,10 @@ public class Booking {
     private Boolean isApproved;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false,updatable = false,insertable = false)
     private User user;
+
+    @Column(name="user_id")
+    private Long userId;
 
 }

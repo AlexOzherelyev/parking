@@ -23,9 +23,6 @@ import java.util.List;
 public class BaseController {
 
     private final ParkingService parkingService;
-    private final OwnerService ownerService;
-    private final UserService userService;
-    private final CredentialService credentialService;
 
     @GetMapping
     public List<ParkingDto>getParking(){
@@ -33,7 +30,12 @@ public class BaseController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ParkingDto createStudent(@RequestBody ParkingDto newParking) {
+    public ParkingDto createParking(@RequestBody ParkingDto newParking) {
         return parkingService.create(newParking);
+    }
+
+    @GetMapping(value="/ow")
+    public List<ParkingDto>getParkingByOwner(){
+        return parkingService.findForCurrentUser();
     }
 }

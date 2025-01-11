@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = OwnerMapper.class, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(componentModel = "spring", uses = {OwnerMapper.class,BookingMapper.class}, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface ParkingMapper {
     Parking dtoToEntity(ParkingDto dto);
 

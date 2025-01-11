@@ -15,7 +15,6 @@ public class ParkingApplication {
 		ParkingApplication.initializerService = initializerService;
 	}
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(ParkingApplication.class, args);
 		initializerService.initial();

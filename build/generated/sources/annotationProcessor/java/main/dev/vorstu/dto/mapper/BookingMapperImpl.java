@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-10T19:13:28+0300",
+    date = "2025-01-11T16:53:57+0300",
     comments = "version: 1.6.2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.10.2.jar, environment: Java 17.0.13 (Amazon.com Inc.)"
 )
 @Component
@@ -24,11 +24,11 @@ public class BookingMapperImpl implements BookingMapper {
         Booking booking = new Booking();
 
         booking.setId( dto.getId() );
-        booking.setParking( dto.getParking() );
+        booking.setParkingId( dto.getParkingId() );
         booking.setTimeBookStart( dto.getTimeBookStart() );
         booking.setTimeBookEnd( dto.getTimeBookEnd() );
         booking.setIsApproved( dto.getIsApproved() );
-        booking.setUser( dto.getUser() );
+        booking.setUserId( dto.getUserId() );
 
         return booking;
     }
@@ -39,16 +39,16 @@ public class BookingMapperImpl implements BookingMapper {
             return null;
         }
 
-        BookingDto bookingDto = new BookingDto();
+        BookingDto.BookingDtoBuilder bookingDto = BookingDto.builder();
 
-        bookingDto.setId( entity.getId() );
-        bookingDto.setParking( entity.getParking() );
-        bookingDto.setTimeBookStart( entity.getTimeBookStart() );
-        bookingDto.setTimeBookEnd( entity.getTimeBookEnd() );
-        bookingDto.setIsApproved( entity.getIsApproved() );
-        bookingDto.setUser( entity.getUser() );
+        bookingDto.id( entity.getId() );
+        bookingDto.parkingId( entity.getParkingId() );
+        bookingDto.timeBookStart( entity.getTimeBookStart() );
+        bookingDto.timeBookEnd( entity.getTimeBookEnd() );
+        bookingDto.isApproved( entity.getIsApproved() );
+        bookingDto.userId( entity.getUserId() );
 
-        return bookingDto;
+        return bookingDto.build();
     }
 
     @Override
